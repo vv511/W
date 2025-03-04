@@ -5,13 +5,13 @@ author：xdz1
 
 **************************************
 [rewrite_local]
-#! ^https:([\S\s]*?)gameloft.com/scripts/general/sync_all.php url script-response-body https://raw.githubusercontent.com/xudazhu1/QuantumultX-/main/as8.js
-#! ^https:([\S\s]*?)gameloft.com/scripts/energy/pre_tle_race.php url script-response-body https://raw.githubusercontent.com/xudazhu1/QuantumultX-/main/as8.js
-^https:([\S\s]*?)gameloft.com/configs/users/me url script-response-body https://raw.githubusercontent.com/xudazhu1/QuantumultX-/main/as8.js
-^https:([\S\s]*?)unityads.unity3d.com/([\S\s]*?)/config.json url script-response-body https://raw.githubusercontent.com/xudazhu1/QuantumultX-/main/as8.js
+#! ^https:([\S\s]*?)gameloft.com/scripts/general/sync_all.php url script-response-body https://github.com/vv511/W/blob/main/Gameloft8.js
+#! ^https:([\S\s]*?)gameloft.com/scripts/energy/pre_tle_race.php url script-response-body https://github.com/vv511/W/blob/main/Gameloft8.js
+^https:([\S\s]*?)gameloft.com/configs/users/me url script-response-body https://github.com/vv511/W/blob/main/Gameloft8.js
+^https:([\S\s]*?)unityads.unity3d.com/([\S\s]*?)/config.json url script-response-body https://github.com/vv511/W/blob/main/Gameloft8.js
 
-^https:([\S\s]*?)gameloft.com/scripts url script-response-body https://raw.githubusercontent.com/xudazhu1/QuantumultX-/main/as8.js
-^https:([\S\s]*?)gameloft.com/profiles/me/myprofile url script-response-body https://raw.githubusercontent.com/xudazhu1/QuantumultX-/main/as8.js
+^https:([\S\s]*?)gameloft.com/scripts url script-response-body https://github.com/vv511/W/blob/main/Gameloft8.js
+^https:([\S\s]*?)gameloft.com/profiles/me/myprofile url script-response-body https://github.com/vv511/W/blob/main/Gameloft8.js
 
 # ! ^https://iap-eur.gameloft.com/inapp_crm/index.php url script-response-body http://192.168.8.229:8088/as8.js
 #! ^https:([\S\s]*?)gameloft.com/authorize url script-request-body http://192.168.8.229:8088/as8.js
