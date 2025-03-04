@@ -13,8 +13,8 @@ author：xdz1
 ^https:([\S\s]*?)gameloft.com/scripts url script-response-body https://github.com/vv511/W/blob/main/Gameloft8.js
 ^https:([\S\s]*?)gameloft.com/profiles/me/myprofile url script-response-body https://github.com/vv511/W/blob/main/Gameloft8.js
 
-# ! ^https://iap-eur.gameloft.com/inapp_crm/index.php url script-response-body http://192.168.8.229:8088/as8.js
-#! ^https:([\S\s]*?)gameloft.com/authorize url script-request-body http://192.168.8.229:8088/as8.js
+# ! ^https://iap-eur.gameloft.com/inapp_crm/index.php url script-response-body http://192.168.8.229:8088/Gameloft8.js
+#! ^https:([\S\s]*?)gameloft.com/authorize url script-request-body http://192.168.8.229:8088/Gameloft8.js
 #! 下面是去广告
 #! ^https://web.facebook.com/adnw_sync2 url reject
 #! ^https:([\S\s]*?)unityads.unity3d.com url reject
