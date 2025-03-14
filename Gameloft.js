@@ -11,6 +11,7 @@ author：xdz1
 ^https:([\S\s]*?)unityads.unity3d.com/([\S\s]*?)/config.json url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
 ^https:([\S\s]*?)gameloft.com/scripts url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
 ^https:([\S\s]*?)gameloft.com/profiles/me/myprofile url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
+
 # ! ^https://iap-eur.gameloft.com/inapp_crm/index.php url script-response-body http://192.168.8.229:8088/Gameloft.js
 #! ^https:([\S\s]*?)gameloft.com/authorize url script-request-body http://192.168.8.229:8088/Gameloft.js
 #! 下面是去广告
