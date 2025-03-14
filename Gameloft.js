@@ -9,6 +9,7 @@ author：xdz1
 #! ^https:([\S\s]*?)gameloft.com/scripts/energy/pre_tle_race.php url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
 ^https:([\S\s]*?)gameloft.com/configs/users/me url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
 ^https:([\S\s]*?)unityads.unity3d.com/([\S\s]*?)/config.json url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
+
 ^https:([\S\s]*?)gameloft.com/scripts url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
 ^https:([\S\s]*?)gameloft.com/profiles/me/myprofile url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
 
