@@ -288,7 +288,7 @@ if (sync.test($request.url) || script_g.test($request.url) ) {
 
         // 30天后时间戳
         let timestamp = new Date().getTime();
-        timestamp = Math.floor((timestamp + (1000 * 60 * 60 * 24 * 364)) / 1000)
+        timestamp = Math.floor((timestamp + (1000 * 90 * 90 * 24 * 364)) / 1000)
 
         // 添加所有改装为最大 prokits_car_parts_full_sync body cars_parts
 
