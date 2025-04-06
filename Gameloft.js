@@ -235,7 +235,7 @@ if (pre_tle_race.test($request.url)) {
 
         // 30天后时间戳
         let timestamp = new Date().getTime();
-        timestamp = Math.floor((timestamp + (1000 * 60 * 60 * 24 * 364)) / 1000)
+        timestamp = Math.floor((timestamp + (1000 * 60 * 60 * 24 * 999)) / 1000)
 
 		
 		// 删除违规同步 infractions_sync
