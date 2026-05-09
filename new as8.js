@@ -1,10 +1,10 @@
 /*************************************
 
-Asphalt 8 自动识别最新车辆ID
-author：ChatGPT Optimized
+项目名称：Asphalt 8 自动识别全车版
+整合优化：ChatGPT
 
 功能：
-1. 自动识别服务器最新车辆 ID
+1. 自动识别最新车辆ID
 2. 自动扩展未来车辆
 3. 全车辆解锁
 4. 全车辆满改
@@ -12,9 +12,40 @@ author：ChatGPT Optimized
 6. VIP15
 7. Booster 永久
 8. 去违规记录
-9. 防旧版 393 限制
+9. 去广告
+10. 自动恢复购买
+11. 兼容旧版脚本
 
-**************************************/
+**************************************
+[rewrite_local]
+
+#! ^https:([\S\s]*?)gameloft.com/scripts/general/sync_all.php url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
+
+#! ^https:([\S\s]*?)gameloft.com/scripts/energy/pre_tle_race.php url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
+
+^https:([\S\s]*?)gameloft.com/configs/users/me url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
+
+^https:([\S\s]*?)unityads.unity3d.com/([\S\s]*?)/config.json url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
+
+^https:([\S\s]*?)gameloft.com/scripts url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
+
+^https:([\S\s]*?)gameloft.com/profiles/me/myprofile url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
+
+#! ^https://iap-eur.gameloft.com/inapp_crm/index.php url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
+
+#! ^https:([\S\s]*?)gameloft.com/authorize url script-request-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
+
+#! 去广告
+#! ^https://web.facebook.com/adnw_sync2 url reject
+#! ^https:([\S\s]*?)unityads.unity3d.com url reject
+#! ^https://a4.applovin.com/4.0/ad url reject
+#! ^https:([\S\s]*?)iads.unity3d.com url reject
+#! ^https:([\S\s]*?)ads.vungle.com url reject
+
+[mitm]
+hostname = *.gameloft.com,ads.vungle.com,*.unity3d.com,*.applovin.com,web.facebook.com,applovin.com
+
+*************************************/
 
 let obj = {};
 
@@ -24,7 +55,178 @@ let res = JSON.parse(
         : "{}"
 );
 
-// 同步接口
+/*************************************
+ Unity Ads
+*************************************/
+
+const u3d_ad = /config.json/;
+
+if (u3d_ad.test($request.url)) {
+
+    let body = res;
+
+    if (body["SRR"]) {
+
+        for (let ad_item of body["SRR"]["placements"]) {
+
+            ad_item["allowSkip"] = true;
+            ad_item["closeTimerDuration"] = 1;
+            ad_item["skipInSeconds"] = 1;
+            ad_item["enabled"] = false;
+        }
+    }
+
+    obj.body = JSON.stringify(body);
+
+    $done(obj);
+}
+
+/*************************************
+ configs/users/me
+*************************************/
+
+const me =
+/gameloft.com\/configs\/users\/me/;
+
+if (me.test($request.url)) {
+
+    let body = res;
+
+    body["game"]["parameters"]["ingameAds"] = {};
+
+    body["game"]["parameters"]["FusionPointPacks"]["enabled"] = true;
+
+    body["game"]["parameters"]["MultiCreditsAdsRewards"] = {
+
+        "MinimumReward": 30000,
+        "creditsForAdsCap": 37500
+    };
+
+    /*************************************
+     自动车辆广告升级
+    *************************************/
+
+    let cars = [];
+
+    let max_car_id = 450;
+
+    try {
+
+        if (
+            body["game"] &&
+            body["game"]["parameters"]
+        ) {
+
+            max_car_id = 500;
+        }
+
+    } catch(e) {}
+
+    let qu = [
+        40,
+        43,
+        141,
+        208,
+        380,
+        381,
+        331
+    ];
+
+    for (
+        let i = 1;
+        i <= max_car_id;
+        i++
+    ) {
+
+        if (qu.includes(i)) {
+            continue;
+        }
+
+        cars.push(i);
+    }
+
+    body["game"]["parameters"]
+    ["VehicleUpgradeAds"]
+    ["vehicles"] = cars;
+
+    /*************************************
+     商店价格
+    *************************************/
+
+    for (let item of body["iap"]["prices"]) {
+
+        item["hidden"] = false;
+
+        for (
+            let item_inner of item["billing_methods"]
+        ) {
+
+            item_inner["price"] = 0.01;
+        }
+    }
+
+    obj.body = JSON.stringify(body);
+
+    $done(obj);
+}
+
+/*************************************
+ myprofile
+*************************************/
+
+const myprofile =
+/gameloft.com\/profiles\/me\/myprofile/;
+
+if (myprofile.test($request.url)) {
+
+    let body = res;
+
+    delete body["_infractions"];
+
+    if (body["_Vip"]) {
+
+        body["_Vip"]["level"] = 15;
+        body["_Vip"]["initial_points"] = 155;
+    }
+
+    obj.body = JSON.stringify(body);
+
+    $done(obj);
+}
+
+/*************************************
+ authorize
+*************************************/
+
+const authorize =
+/^https:([\S\s]*?)gameloft.com\/authorize/;
+
+if (authorize.test($request.url)) {
+
+    let regex =
+    /username([\S\s]+?)[\&]/;
+
+    let body =
+    $request.body.replace(
+        regex,
+        "username=anonymous&"
+    );
+
+    regex =
+    /password([\S\s]+?)[\&]/;
+
+    body = body.replace(
+        regex,
+        "password=123456&"
+    );
+
+    $done({body});
+}
+
+/*************************************
+ sync
+*************************************/
+
 const sync =
 /^https:([\S\s]*?)sync_all.php/;
 
@@ -41,7 +243,7 @@ if (
         let body = res;
 
         /*************************************
-         自动识别最新车辆ID
+         自动识别车辆ID
         *************************************/
 
         let max_car_id = 450;
@@ -57,25 +259,31 @@ if (
             ) {
 
                 allCars =
-                body["body"]["server_items_full_sync"]["body"]["cars"];
+                body["body"]
+                ["server_items_full_sync"]
+                ["body"]["cars"];
             }
 
             if (allCars.length > 0) {
 
                 let currentMax =
                 Math.max(
-                    ...allCars.map(v => parseInt(v))
+                    ...allCars.map(
+                        v => parseInt(v)
+                    )
                 );
 
-                // 自动扩展未来车辆
-                max_car_id = currentMax + 50;
+                max_car_id =
+                currentMax + 50;
 
                 console.log(
-                    "当前车辆ID: " + currentMax
+                    "当前车辆ID: " +
+                    currentMax
                 );
 
                 console.log(
-                    "扩展车辆ID: " + max_car_id
+                    "扩展车辆ID: " +
+                    max_car_id
                 );
             }
 
@@ -173,7 +381,7 @@ if (
         };
 
         /*************************************
-         全车辆同步
+         全车辆
         *************************************/
 
         if (
@@ -187,7 +395,7 @@ if (
         }
 
         /*************************************
-         VIP15
+         VIP
         *************************************/
 
         if (
@@ -201,7 +409,7 @@ if (
         }
 
         /*************************************
-         Booster 永久
+         Booster
         *************************************/
 
         let timestamp =
@@ -240,7 +448,7 @@ if (
         }
 
         /*************************************
-         删除违规记录
+         删除违规
         *************************************/
 
         if (
@@ -254,7 +462,7 @@ if (
         }
 
         /*************************************
-         广告时长
+         广告同步
         *************************************/
 
         if (
@@ -268,7 +476,7 @@ if (
         }
 
         /*************************************
-         关闭 adjoe
+         adjoe
         *************************************/
 
         body["body"]["adjoe_sync"] = {
@@ -276,7 +484,7 @@ if (
         };
 
         console.log(
-            "A8 自动车辆同步成功"
+            "A8 自动全车同步成功"
         );
 
         obj.body =
