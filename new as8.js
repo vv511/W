@@ -92,7 +92,7 @@ if (me.test($request.url) ) {
 	// ingameAds
 	body["game"]["parameters"]["ingameAds"] = {}
 	 
-	// 是否车辆升级广告 VehicleUpgradeAds vehicles[1,2,450.....]
+	// 是否车辆升级广告 VehicleUpgradeAds vehicles[1,2,393.....]
 	
 	let cars = []
 	let qu = [40, 43, 141, 208, 380, 381, 331];
@@ -106,6 +106,8 @@ if (me.test($request.url) ) {
 		cars.push(i)
 	}
 	body["game"]["parameters"]["VehicleUpgradeAds"]["vehicles"] = cars
+	
+	
 	// 离线商店 取消隐藏
 	for (let item of body["offline_store"]["prices"]) {
 	  item["hidden"] = false
@@ -165,7 +167,7 @@ if (restore.test($request.url) ) {
 				"id": "Car_Bundle_350_iinm",
 				"info": [
 					{
-						"quantity": 1,
+						"quantity": 1，
 						"item": "Nissan_Leaf_Nismo_RC___CAR_PRICE"
 					}
 				],
@@ -262,7 +264,7 @@ if (pre_tle_race.test($request.url)) {
 }
 
 
-console.log("改: ")
+console。log("改: ")
     console.log($request.url)
 // sync start  gameloft.com/scripts
 const script_g = /^https:([\S\s]*?)gameloft.com\/scripts([\S\s]*?).php/;
