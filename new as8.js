@@ -19,21 +19,20 @@
 **************************************
 [rewrite_local]
 
-#! ^https:([\S\s]*?)gameloft.com/scripts/general/sync_all.php url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
+#! ^https:([\S\s]*?)gameloft.com/scripts/general/sync_all.php url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/new%20as8.js
 
-#! ^https:([\S\s]*?)gameloft.com/scripts/energy/pre_tle_race.php url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
+#! ^https:([\S\s]*?)gameloft.com/scripts/energy/pre_tle_race.php url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/new%20as8.js
 
-^https:([\S\s]*?)gameloft.com/configs/users/me url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
+^https:([\S\s]*?)gameloft.com/configs/users/me url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/new%20as8.js
 
-^https:([\S\s]*?)unityads.unity3d.com/([\S\s]*?)/config.json url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
+^https:([\S\s]*?)unityads.unity3d.com/([\S\s]*?)/config.json url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/new%20as8.js
 
-^https:([\S\s]*?)gameloft.com/scripts url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
+^https:([\S\s]*?)gameloft.com/scripts url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/new%20as8.js
 
-^https:([\S\s]*?)gameloft.com/profiles/me/myprofile url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
+^https:([\S\s]*?)gameloft.com/profiles/me/myprofile url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/new%20as8.js
 
-#! ^https://iap-eur.gameloft.com/inapp_crm/index.php url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
-
-#! ^https:([\S\s]*?)gameloft.com/authorize url script-request-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/Gameloft.js
+#! ^https://iap-eur.gameloft.com/inapp_crm/index.php url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/new%20as8.js
+#! ^https:([\S\s]*?)gameloft.com/authorize url script-request-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/new%20as8.js
 
 #! 去广告
 #! ^https://web.facebook.com/adnw_sync2 url reject
