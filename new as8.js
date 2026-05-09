@@ -107,6 +107,48 @@ if (me.test($request.url) ) {
 	}
 	body["game"]["parameters"]["VehicleUpgradeAds"]["vehicles"] = cars
 	
+
+// 自动识别最新车辆ID
+
+let max_car_id = 450;
+
+try {
+
+	let allCars = [];
+	if (
+		body["body"] &&
+		body["body"]["server_items_full_sync"] &&
+		body["body"]["server_items_full_sync"]["body"] &&
+		body["body"]["server_items_full_sync"]["body"]["cars"]
+	) {
+		allCars =
+		body["body"]["server_items_full_sync"]["body"]["cars"];
+	}
+	if (allCars.length > 0) {
+		let currentMax =
+		Math.max(...allCars.map(v => parseInt(v)));
+		// 自动扩展未来车辆
+		max_car_id = currentMax + 50;
+		console.log("当前最大车辆ID = " + currentMax);
+		console.log("自动扩展到 = " + max_car_id);
+	}
+
+} catch(e) {
+
+	console.log("自动识别车辆失败");
+
+}
+
+// 自动添加车辆
+
+for (let i = 1; i <= max_car_id; i++) {
+
+	if (qu.includes(i) || qu2.includes(i)) {
+		continue;
+	}
+	cars.push(i)
+
+}
 	
 	// 离线商店 取消隐藏
 	for (let item of body["offline_store"]["prices"]) {
