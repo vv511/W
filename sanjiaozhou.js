@@ -1,8 +1,5 @@
 /*************************************
 
-项目名称：**********
-author：xdz1
-
 **************************************
 [rewrite_local]
 #! ^https:([\S\s]*?)gameloft.com/scripts/general/sync_all.php url script-response-body https://raw.githubusercontent.com/vv511/W/refs/heads/main/sanjiaozhou.js
